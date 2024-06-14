@@ -15,7 +15,15 @@ namespace App_Inventario
         public Form1()
         {
             InitializeComponent();
+
+            //button1.FlatStyle = FlatStyle.Flat;
+            //button1.FlatAppearance.BorderSize = 0;
+
+            button1.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, button1.Width, button1.Height, 15, 15));
         }
+
+        [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
 
         private void button1_Click(object sender, EventArgs e)
         {

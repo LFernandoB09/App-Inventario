@@ -16,8 +16,8 @@ namespace App_Inventario
 
         public static void login(string usuario, string contr)
         {
-            string cadena_conexion = "Server = localhost; User = root; Password = ; Database = cooler";
-            MySqlConnection conexion = new MySqlConnection(cadena_conexion);
+            string cadenaConexion = "Server = localhost; User = root; Password = ; Database = cooler";
+            MySqlConnection conexion = new MySqlConnection(cadenaConexion);
             try
             {
                 conexion.Open();
