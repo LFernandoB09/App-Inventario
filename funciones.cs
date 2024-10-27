@@ -11,6 +11,7 @@ namespace App_Inventario
 {
     internal class Funciones
     {
+        //rectificar cambios
         public static void Login(string usuario, string contr)
         {
             string cadenaConexion = "Server = localhost; User = root; Password = ; Database = cooler";
@@ -18,14 +19,14 @@ namespace App_Inventario
 
             if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(contr))
             {
-                MessageBox.Show("Completa los compos para continuar", "Error");
+                MessageBox.Show("Completa los datos para continuar", "Error");
             }
             else
             {
                 try
                 {
                     conexion.Open();
-                    string consulta = "SELECT Usuario, Password FROM usuarios WHERE Usuario = @usuario AND Password = @contr";
+                    string consulta = "SELECT Usuario, Password, Cargo FROM usuarios WHERE Usuario = @usuario AND Password = @contr";
                     MySqlCommand cmd = new MySqlCommand(consulta, conexion);
                     cmd.Parameters.AddWithValue("@usuario", usuario);
                     cmd.Parameters.AddWithValue("@contr", contr);
@@ -33,10 +34,20 @@ namespace App_Inventario
                     MySqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
-                        string username = reader["Usuario"].ToString();
-                        MessageBox.Show("Bienvenido " + username);
-                        Inicio form2 = new Inicio();
-                        form2.Show();
+                        string cargo = reader["Cargo"].ToString();
+                        if (cargo == "Almacenista")
+                        {
+                            string username = reader["Usuario"].ToString();
+                            MessageBox.Show("Bienvenido " + username);
+                            Inicio inicio = new Inicio();
+                            inicio.Show();
+                        }else if (cargo == "Admin")
+                        {
+                            string username = reader["Usuario"].ToString();
+                            MessageBox.Show("Bienvenido " + username);
+                            Admin admin = new Admin();
+                            admin.Show();
+                        }
                     }
                     else
                     {
@@ -68,7 +79,7 @@ namespace App_Inventario
             try
             {
                 conexion.Open();
-                string consulta = "SELECT Id_Material as Id, Material, Cantidad FROM inventario_seven";
+                string consulta = "SELECT idMaterial as Id, Material, Cantidad FROM inventarioseven";
                 MySqlCommand comando = new MySqlCommand(consulta, conexion);
                 MySqlDataAdapter adaptador = new MySqlDataAdapter(comando);
                 DataTable tabla = new DataTable();
@@ -94,7 +105,7 @@ namespace App_Inventario
             try
             {
                 conexion.Open();
-                string consulta = "SELECT Id_Material AS Id, Material, Cantidad FROM inventario_optima";
+                string consulta = "SELECT idMaterial AS Id, Material, Cantidad FROM inventariooptima";
                 MySqlCommand comando = new MySqlCommand(consulta, conexion);
                 MySqlDataAdapter adaptador = new MySqlDataAdapter(comando);
                 DataTable tabla = new DataTable();
@@ -120,7 +131,7 @@ namespace App_Inventario
             try
             {
                 conexion.Open();
-                string consulta = "SELECT Id_Material AS Id, Material, Cantidad FROM inventario_frunatural";
+                string consulta = "SELECT idMaterial AS Id, Material, Cantidad FROM inventariofrunatural";
                 MySqlCommand comando = new MySqlCommand(consulta, conexion);
                 MySqlDataAdapter adaptador = new MySqlDataAdapter(comando);
                 DataTable tabla = new DataTable();
