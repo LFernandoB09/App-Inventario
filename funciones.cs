@@ -11,6 +11,7 @@ namespace App_Inventario
 {
     internal class Funciones
     {
+        //rectificar cambios
         public static void Login(string usuario, string contr)
         {
             string cadenaConexion = "Server = localhost; User = root; Password = ; Database = cooler";
